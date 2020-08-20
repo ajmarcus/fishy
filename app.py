@@ -11,8 +11,9 @@ db = create_engine(getenv('DB'))
 def health():
     return 'healthy!'
 
+
 @app.route('/')
 def hello_world():
-    with c as db.connect():
+    with db.connect() as c:
         result = c.execute('select message from fishy where id=1;')
         return result.fetchone()['message']
